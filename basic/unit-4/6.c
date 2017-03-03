@@ -15,4 +15,5 @@ void main()
   s = (r % 3600) % 60;    //seconds
 
   printf("Have passed %d days, current time is %02d:%02d:%02d\n", d, h, m, s);
+  
 }
