@@ -1,10 +1,25 @@
 #include <stdio.h>
 
+#ifdef WINDOWS
+#include <windows.h>
+
+#define BLUE FOREGROUND_BLUE
+#define GREEN FOREGROUND_GREEN
+#define RED FOREGROUND_RED
+
+#else
+
+#define BLUE 34
+#define GREEN 32
+#define RED 31
+
+#endif
+
 // 是否是闰年
 #define LEAPYEAR(Y) (((Y) % 4) == 0 && ((Y) % 100 != 0) || ((Y) % 400) == 0)
 
 // 返回year年month月的天数
-inline int month_day(int year, int month)
+int month_day(int year, int month)
 {
     if (month == 1 || month == 3 || month == 5 || month == 7 | month == 8 || month == 10 || month== 12)
         return 31;
@@ -17,15 +32,33 @@ inline int month_day(int year, int month)
 }
 
 // 生成日历头
-inline void make_title(int start)
+void make_title(int start)
 {
     if(start < 10)
         printf("%12c%d月%28c%d月%27c%d月\n", ' ', start, ' ', start + 1, ' ', start + 2);
     else
         printf("%12c%d月%27c%d月%26c%d月\n", ' ', start, ' ', start + 1, ' ', start + 2);
-    printf("Mon Tue Wed Thu Fri Sat Sun    ");
-    printf("Mon Tue Wed Thu Fri Sat Sun    ");
-    printf("Mon Tue Wed Thu Fri Sat Sun\n");
+
+    // printf("Mon Tue Wed Thu Fri Sat Sun    ");
+    int i = 0;
+
+    for(; i < 3; ++i)
+    {
+        printf("Mon Tue Wed Thu Fri");
+#ifdef WINDOWS
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hConsole, BLUE);
+        printf(" Sat ");
+        SetConsoleTextAttribute(hConsole, RED);
+        printf("Sun    ");
+        SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN);
+        CloseHandle(hConsole);
+#else
+        printf("\033[%dm Sat \033[0m", BLUE);
+        printf("\033[%dmSun    \033[0m", RED);
+#endif
+    }
+    printf("\n");
 }
 
 // 计算year年month月day天是星期几，用来第一天对齐
@@ -61,10 +94,31 @@ void echo_line(int start_week, int start, int len)
     for (i = 1; i < start_week; ++i)
         printf("    ");
     // 输出连续的天数，直到这周结束，或者这个月结束
-    for(i = 0; i < len; start ++)
+    for(i = 0; i < len; start++, i++)
     {
-        i++;
-        printf("%-4d", start);
+        if (start_week + i == 6)
+        {
+#ifdef WINDOWS
+            HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+            SetConsoleTextAttribute(hConsole, BLUE);
+            printf("%-4d", start);
+            SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN);
+            CloseHandle(hConsole);
+#else
+            printf("\033[%dm%-4d\033[0m", BLUE, start);
+#endif
+        }else if (start_week + i == 7)
+        {
+#ifdef WINDOWS
+            HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+            SetConsoleTextAttribute(hConsole, RED);
+            printf("%-4d", start);
+            SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN);
+            CloseHandle(hConsole);
+#else
+            printf("\033[%dm%-4d\033[0m", RED, start);
+#endif
+        }else printf("%-4d", start);
     }
     // 补齐结束的空白
     for(i = 0; i < 7 - (start_week + len - 1); ++i)
