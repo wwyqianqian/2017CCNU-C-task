@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define WINDOWS
+
 #ifdef WINDOWS
 #include <windows.h>
 
@@ -51,8 +53,7 @@ void make_title(int start)
         printf(" Sat ");
         SetConsoleTextAttribute(hConsole, RED);
         printf("Sun    ");
-        SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN);
-        CloseHandle(hConsole);
+        SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN|FOREGROUND_INTENSITY);
 #else
         printf("\033[%dm Sat \033[0m", BLUE);
         printf("\033[%dmSun    \033[0m", RED);
@@ -102,8 +103,7 @@ void echo_line(int start_week, int start, int len)
             HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
             SetConsoleTextAttribute(hConsole, BLUE);
             printf("%-4d", start);
-            SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN);
-            CloseHandle(hConsole);
+            SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN|FOREGROUND_INTENSITY);
 #else
             printf("\033[%dm%-4d\033[0m", BLUE, start);
 #endif
@@ -113,8 +113,7 @@ void echo_line(int start_week, int start, int len)
             HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
             SetConsoleTextAttribute(hConsole, RED);
             printf("%-4d", start);
-            SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN);
-            CloseHandle(hConsole);
+            SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN|FOREGROUND_INTENSITY);
 #else
             printf("\033[%dm%-4d\033[0m", RED, start);
 #endif
