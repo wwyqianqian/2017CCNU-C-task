@@ -116,7 +116,7 @@ int main()
                 // 处理横排的下一个
                 month_2++;
                 // 横排月中间四个空格
-                printf("    ");
+                printf("   ");
             }
             // 重设一下指示器
             month_2 = month;
