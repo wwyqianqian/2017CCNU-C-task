@@ -1,8 +1,6 @@
 #include <stdio.h>
 
-#define WINDOWS
-
-#ifdef WINDOWS
+#ifdef _WIN32
 #include <windows.h>
 
 #define BLUE FOREGROUND_BLUE
@@ -47,16 +45,16 @@ void make_title(int start)
     for(; i < 3; ++i)
     {
         printf("Mon Tue Wed Thu Fri");
-#ifdef WINDOWS
+#ifdef _WIN32
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-        SetConsoleTextAttribute(hConsole, BLUE);
+        SetConsoleTextAttribute(hConsole, BLUE|FOREGROUND_INTENSITY);
         printf(" Sat ");
-        SetConsoleTextAttribute(hConsole, RED);
+        SetConsoleTextAttribute(hConsole, RED|FOREGROUND_INTENSITY);
         printf("Sun    ");
         SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN|FOREGROUND_INTENSITY);
 #else
-        printf("\033[%dm Sat \033[0m", BLUE);
-        printf("\033[%dmSun    \033[0m", RED);
+        printf("\033[1;%dm Sat \033[0m", BLUE);
+        printf("\033[1;%dmSun    \033[0m", RED);
 #endif
     }
     printf("\n");
@@ -99,23 +97,23 @@ void echo_line(int start_week, int start, int len)
     {
         if (start_week + i == 6)
         {
-#ifdef WINDOWS
+#ifdef _WIN32
             HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-            SetConsoleTextAttribute(hConsole, BLUE);
+            SetConsoleTextAttribute(hConsole, BLUE|FOREGROUND_INTENSITY);
             printf("%-4d", start);
             SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN|FOREGROUND_INTENSITY);
 #else
-            printf("\033[%dm%-4d\033[0m", BLUE, start);
+            printf("\033[1;%dm%-4d\033[0m", BLUE, start);
 #endif
         }else if (start_week + i == 7)
         {
-#ifdef WINDOWS
+#ifdef _WIN32
             HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-            SetConsoleTextAttribute(hConsole, RED);
+            SetConsoleTextAttribute(hConsole, RED|FOREGROUND_INTENSITY);
             printf("%-4d", start);
             SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN|FOREGROUND_INTENSITY);
 #else
-            printf("\033[%dm%-4d\033[0m", RED, start);
+            printf("\033[1;%dm%-4d\033[0m", RED, start);
 #endif
         }else printf("%-4d", start);
     }
