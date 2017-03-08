@@ -58,6 +58,7 @@ int main()
     int week_start[3] = {0, 0, 0};  // 横排三个月的每个月的第一天是星期几
     int len[3] = {0, 0, 0};         // 从开始到周结束的长度
 
+    printf("%s\n", "--------------------------------------------------------------------------------------------");
     for(; month <= 12; )
     {
         make_title(month);
@@ -88,7 +89,7 @@ int main()
                 // 处理横排的下一个
                 current_month++;
                 // 横排月中间四个空格
-                printf("   ");
+                printf("|   ");
             }
             // 重设一下指示器
             current_month = month;
@@ -97,6 +98,7 @@ int main()
         }
         // 下一个三个月
         month += 3;
+        printf("---------------------------------------------------------------------------------------------\n");
         // 换行
         printf("\n");
         // 重置天数
@@ -125,9 +127,9 @@ int month_day(int year, int month)
 void make_title(int start)
 {
     if(start < 10)
-        printf("%12c%d月%28c%d月%27c%d月\n", ' ', start, ' ', start + 1, ' ', start + 2);
+        printf("%12c%d月%28c%d月%27c%d月                |\n", ' ', start, ' ', start + 1, ' ', start + 2);
     else
-        printf("%12c%d月%27c%d月%26c%d月\n", ' ', start, ' ', start + 1, ' ', start + 2);
+        printf("%12c%d月%27c%d月%26c%d月               |\n", ' ', start, ' ', start + 1, ' ', start + 2);
 
     // printf("Mon Tue Wed Thu Fri Sat Sun    ");
     int i = 0;
@@ -140,11 +142,12 @@ void make_title(int start)
         SetConsoleTextAttribute(hConsole, BLUE|FOREGROUND_INTENSITY);
         printf(" Sat ");
         SetConsoleTextAttribute(hConsole, RED|FOREGROUND_INTENSITY);
-        printf("Sun    ");
+        printf("Sun");
         SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN|FOREGROUND_INTENSITY);
+        printf(" |   ");
 #else
         printf("\033[1;%dm Sat \033[0m", BLUE);
-        printf("\033[1;%dmSun    \033[0m", RED);
+        printf("\033[1;%dmSun \033[0m|   ", RED);
 #endif
     }
     printf("\n");
@@ -221,6 +224,8 @@ void echo_line(int start_week, int start, int len)
             printf("%-4d", start);
     }
     // 补齐结束的空白
+    if(len <= 0)
+        len = 0;
     for(i = 0; i < 7 - (start_week + len - 1); ++i)
         printf("    ");
 }
