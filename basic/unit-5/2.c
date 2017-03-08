@@ -1,4 +1,5 @@
 #include<stdio.h>
+
 void main(){
   int x, sign;
 
@@ -6,10 +7,11 @@ void main(){
 
   if(x > 0)
     sign = 1;
-  else if(x = 0)
+  else if(x == 0)
     sign = 0;
-  else 
+    else
+      sign = -1;
 
-
+  printf("%d\n", sign);
 
 }
