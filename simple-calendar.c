@@ -1,21 +1,5 @@
 #include <stdio.h>
 
-#ifdef _WIN32
-#include <windows.h>
-
-#define BLUE FOREGROUND_BLUE
-#define GREEN FOREGROUND_GREEN
-#define RED FOREGROUND_RED
-
-#else
-
-#define BLUE 34
-#define GREEN 32
-#define RED 31
-
-#endif
-
-// 是否是闰年
 #define LEAPYEAR(Y) (((Y) % 4) == 0 && ((Y) % 100 != 0) || ((Y) % 400) == 0)
 
 // 返回year年month月的天数
@@ -39,28 +23,18 @@ void make_title(int start)
     else
         printf("%12c%d月%27c%d月%26c%d月\n", ' ', start, ' ', start + 1, ' ', start + 2);
 
-    // printf("Mon Tue Wed Thu Fri Sat Sun    ");
     int i = 0;
 
     for(; i < 3; ++i)
     {
-        printf("Mon Tue Wed Thu Fri");
-#ifdef _WIN32
-        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-        SetConsoleTextAttribute(hConsole, BLUE|FOREGROUND_INTENSITY);
-        printf(" Sat ");
-        SetConsoleTextAttribute(hConsole, RED|FOREGROUND_INTENSITY);
-        printf("Sun    ");
-        SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN|FOREGROUND_INTENSITY);
-#else
-        printf("\033[1;%dm Sat \033[0m", BLUE);
-        printf("\033[1;%dmSun    \033[0m", RED);
-#endif
+        printf("Mon Tue Wed Thu Fri Sat Sun    ");
     }
     printf("\n");
 }
 
 // 计算year年month月day天是星期几，用来第一天对齐
+
+
 int week_day(int year, int month, int day)
 {
     /* 计算星期几 */
@@ -97,14 +71,15 @@ void echo_line(int start_week, int start, int len)
     {
         if (start_week + i == 6)
         {
-#ifdef _WIN32
+/*#ifdef _WIN32
             HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
             SetConsoleTextAttribute(hConsole, BLUE|FOREGROUND_INTENSITY);
             printf("%-4d", start);
             SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN|FOREGROUND_INTENSITY);
 #else
-            printf("\033[1;%dm%-4d\033[0m", BLUE, start);
-#endif
+*/
+            printf("%-4d", start);
+/*#endif*/
         }else if (start_week + i == 7)
         {
 #ifdef _WIN32
@@ -113,7 +88,7 @@ void echo_line(int start_week, int start, int len)
             printf("%-4d", start);
             SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN|FOREGROUND_INTENSITY);
 #else
-            printf("\033[1;%dm%-4d\033[0m", RED, start);
+            printf("%-4d", start);
 #endif
         }else printf("%-4d", start);
     }
