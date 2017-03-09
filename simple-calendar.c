@@ -71,25 +71,12 @@ void echo_line(int start_week, int start, int len)
     {
         if (start_week + i == 6)
         {
-/*#ifdef _WIN32
-            HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-            SetConsoleTextAttribute(hConsole, BLUE|FOREGROUND_INTENSITY);
             printf("%-4d", start);
-            SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN|FOREGROUND_INTENSITY);
-#else
-*/
-            printf("%-4d", start);
-/*#endif*/
+
         }else if (start_week + i == 7)
         {
-#ifdef _WIN32
-            HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-            SetConsoleTextAttribute(hConsole, RED|FOREGROUND_INTENSITY);
             printf("%-4d", start);
-            SetConsoleTextAttribute(hConsole, RED|BLUE|GREEN|FOREGROUND_INTENSITY);
-#else
-            printf("%-4d", start);
-#endif
+
         }else printf("%-4d", start);
     }
     // 补齐结束的空白
