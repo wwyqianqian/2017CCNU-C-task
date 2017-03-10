@@ -1,6 +1,6 @@
 #include<stdio.h>
 
-void main(){
+int main(void){
   int y, m;
 
   scanf("%d月 %d年", &m ,&y);
@@ -17,7 +17,7 @@ void main(){
     case 6:
     case 9:
     case 11: printf("30\n");  break;
-    case 2: if((y % 4 == 0 && y % 100 != 0) || (y %400 == 0))
+    case 2: if((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0))
                 printf("29\n");
             else
                 printf("28\n");
