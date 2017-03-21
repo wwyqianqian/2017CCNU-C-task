@@ -3,7 +3,9 @@
 
 int main(void) {
     // UTF-8 is 3 byte long.
+    //如果是Windows，令 W = 2;
     int W = 3;
+
     // Input
     char str[256];
     scanf("%s", str);
