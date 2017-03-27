@@ -14,7 +14,7 @@ int main(void){
     sum = sum + term;
     n += 2;
     count++;
-  }while(fabs(term) >= 1e-5);
+  }while(fabs(term) >= 1e-5); //绝对值
 
   printf("sin(x) = %f\n  count = %d", sum ,count);
 }
