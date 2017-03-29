@@ -4,7 +4,7 @@ int main(void){
   char this = ' ';
 
   for(k = 0; k <= 3; k++){
-    this = 'A' + k;
+    this = 'A' + k; //？喵
 
     sum = (this != 'A') + (this == 'C') + (this == 'D') + (this != 'D');
     if(sum == 3){
