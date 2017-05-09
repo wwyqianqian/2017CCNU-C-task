@@ -8,7 +8,7 @@ struct Score_Tab{
   char name[20];
   int score;
   int time;
-}
+};
 int main(void){
   struct Score_Tab score[100], temp;
   FILE *fp;
@@ -20,7 +20,7 @@ int main(void){
   }
 
   n = 0;
-  while(fscanf(fp, "%s%s%d%d", score[n].no, score[n].name, &score[n].score, $score[n].time) != EOF)
+  while(fscanf(fp, "%s%s%d%d", score[n].no, score[n].name, &score[n].score, &score[n].time) != EOF)
     n++;
 
   for(i = 0; i < n - 1; i++){
@@ -47,7 +47,7 @@ int main(void){
   }
 
   for(i = 0; i < n; i++){
-    printf("%4d %-10s %-20s %3d %3d\n", score[n].rank,score[n].no, score[n].name, &score[n].score, $score[n].time);
+    printf("%4d %-10s %-20s %3d %3d\n", score[n].rank, score[n].no, score[n].name, &score[n].score, &score[n].time);
   }
   fclose(fp);
 }
