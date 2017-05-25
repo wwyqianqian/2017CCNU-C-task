@@ -1,3 +1,5 @@
+//失败了的坑，暑假填。-2017.5.25
+
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
