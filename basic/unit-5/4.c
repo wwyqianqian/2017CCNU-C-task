@@ -10,9 +10,9 @@ int main(void){
 
   c = getchar();
   switch (c) {
-    case'1': printf("Good morning\n");  break;
-    case'2': printf("Good afternoon\n");  break;
-    case'3': printf("Good night\n");  break;
+    case '1': printf("Good morning\n");  break;
+    case '2': printf("Good afternoon\n");  break;
+    case '3': printf("Good night\n");  break;
     default: printf("Selection Error!!!\n");
   }
 }
